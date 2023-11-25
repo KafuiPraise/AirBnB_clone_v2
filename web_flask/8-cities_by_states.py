@@ -1,28 +1,30 @@
 #!/usr/bin/python3
-"""Begins a Flask web application: Cities by states"""
-
+"""Initiates a Flask web application.
+The application is set to listen on 0.0.0.0, port 5000.
+Routes:
+/states: Generates an HTML page featuring a list of all State objects.
+/states/<id>: Creates an HTML page showcasing the specified state with <id>.
+"""
 from flask import Flask, render_template
 from models import storage
-from models.city import City
 from models.state import State
-
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
+@app.teardown_appcontext
+def closedb(exc):
+    """ to close a database session"""
+    storage.close()
+
+
 @app.route('/cities_by_states')
-def cities_by_state():
-    """Renders an HTML page listing all states and their cities."""
+def states_list():
+    """ Route for the "/states_list". """
     states = storage.all(State).values()
     return render_template('8-cities_by_states.html', states=states)
 
 
-@app.teardown_appcontext
-def teardown(exception):
-    """Closes the database session upon application context teardown."""
-    storage.close()
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     storage.reload()
-    app.run(host='0.0.0.0', port=5000)
+    app.run("0.0.0.0", 5000)
