@@ -10,7 +10,7 @@ app.url_map.strict_slashes = False
 @app.route('/')
 def hello_hbnb():
     """
-    prints the return value
+    prints Hello HBNB
     """
     return "Hello HBNB!"
 
@@ -18,7 +18,7 @@ def hello_hbnb():
 @app.route('/hbnb')
 def hbnb():
     """
-    prints the HBNB text
+    prints hbnb text
     """
     return "HBNB"
 
@@ -26,7 +26,7 @@ def hbnb():
 @app.route('/c/<text>')
 def c_is_fun(text):
     """
-    prints a C, then the value of the text variable
+    prints a letter c, followed by the value of the text variable
     """
     text = text.replace('_', ' ')
     return "C {}".format(text)
@@ -43,7 +43,7 @@ def python_is_cool(text='is cool'):
 @app.route('/number/<n>')
 def is_number(n):
     """
-    Prints "n is a number" where n is an integer
+    Prints the letter n is a number" where n is an integer
     """
     try:
         n = int(n)
